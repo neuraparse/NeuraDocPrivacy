@@ -1,0 +1,9 @@
+PyQt5>=5.15.0
+PyQt5-sip>=12.8.0
+PyMuPDF>=1.23.0
+regex>=2022.0.0
+python-dotenv>=0.19.0
+Pillow>=9.0.0
+opencv-python-headless>=4.5.0
+spacy>=3.5.0
+phonelib>=0.2.0

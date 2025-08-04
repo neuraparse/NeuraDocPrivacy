@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  neura-doc-privacy:
+    build: .
+    container_name: neura-doc-privacy
+    volumes:
+      # Mount current directory for development
+      - .:/app
+      # Mount a directory for PDF files
+      - ./pdfs:/app/pdfs
+      # Mount output directory
+      - ./output:/app/output
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    network_mode: host
+    # For GUI applications, you might need X11 forwarding
+    # This is for development only
+    stdin_open: true
+    tty: true
+    command: python main.py
+
+  # Development service with hot reload
+  neura-doc-privacy-dev:
+    build: .
+    container_name: neura-doc-privacy-dev
+    volumes:
+      - .:/app
+      - ./pdfs:/app/pdfs
+      - ./output:/app/output
+    environment:
+      - PYTHONPATH=/app
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: python -m pytest tests/ -v --cov=. --cov-report=html
+
+  # CLI service for batch processing
+  neura-doc-privacy-cli:
+    build: .
+    container_name: neura-doc-privacy-cli
+    volumes:
+      - ./pdfs:/app/pdfs
+      - ./output:/app/output
+    command: python pdf_masker.py --help
+
+volumes:
+  pdfs:
+  output: 

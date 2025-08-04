@@ -1,0 +1,189 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neura-doc-privacy"
+dynamic = ["version"]
+description = "A sophisticated PDF document privacy masking tool using NLP"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "NeuraDocPrivacy Team", email = "contact@neura-doc-privacy.com"}
+]
+maintainers = [
+    {name = "NeuraDocPrivacy Team", email = "contact@neura-doc-privacy.com"}
+]
+keywords = ["pdf", "privacy", "masking", "nlp", "spacy", "document-processing", "security"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Security",
+    "Topic :: Text Processing :: Filters",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "PyQt5>=5.15.0",
+    "PyQt5-sip>=12.8.0",
+    "PyMuPDF>=1.23.0",
+    "regex>=2022.0.0",
+    "python-dotenv>=0.19.0",
+    "Pillow>=9.0.0",
+    "opencv-python-headless>=4.5.0",
+    "spacy>=3.5.0",
+    "phonelib>=0.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "black>=21.0",
+    "flake8>=3.8",
+    "mypy>=0.800",
+    "pre-commit>=2.0",
+]
+gui = [
+    "PyQt5>=5.15.0",
+    "PyQt5-sip>=12.8.0",
+]
+test = [
+    "pytest>=6.0",
+    "pytest-cov>=2.0",
+    "pytest-mock>=3.0",
+]
+
+[project.scripts]
+neura-doc-privacy = "main:main"
+pdf-masker = "pdf_masker:main"
+
+[project.urls]
+Homepage = "https://github.com/neuraparse/NeuraDocPrivacy"
+Documentation = "https://github.com/neuraparse/NeuraDocPrivacy#readme"
+Repository = "https://github.com/neuraparse/NeuraDocPrivacy"
+"Bug Tracker" = "https://github.com/neuraparse/NeuraDocPrivacy/issues"
+"Source Code" = "https://github.com/neuraparse/NeuraDocPrivacy"
+
+[tool.setuptools_scm]
+write_to = "neura_doc_privacy/_version.py"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".eggs",
+    "*.egg",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.pre-commit]
+repos = [
+    {
+        repo = "https://github.com/pre-commit/pre-commit-hooks",
+        rev = "v4.4.0",
+        hooks = [
+            {id = "trailing-whitespace"},
+            {id = "end-of-file-fixer"},
+            {id = "check-yaml"},
+            {id = "check-added-large-files"},
+            {id = "check-merge-conflict"},
+        ],
+    },
+    {
+        repo = "https://github.com/psf/black",
+        rev = "23.3.0",
+        hooks = [{id = "black"}],
+    },
+    {
+        repo = "https://github.com/pycqa/flake8",
+        rev = "6.0.0",
+        hooks = [{id = "flake8"}],
+    },
+    {
+        repo = "https://github.com/pre-commit/mirrors-mypy",
+        rev = "v1.3.0",
+        hooks = [{id = "mypy"}],
+    },
+] 
