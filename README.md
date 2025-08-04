@@ -117,6 +117,18 @@ pyinstaller main.spec
 
 The executable will be created in the `dist/` directory.
 
+## 🧪 Testing
+
+Run tests locally:
+```bash
+pytest tests/
+```
+
+Run with coverage:
+```bash
+pytest tests/ --cov=. --cov-report=html
+```
+
 ## 🤝 Contributing
 
 1. Fork the repository

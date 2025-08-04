@@ -39,9 +39,10 @@ git push -u origin main
    - Go to Settings → Branches
    - Add branch protection rule for `main` branch
 
-3. **Set up GitHub Actions**:
-   - The CI workflow is already configured in `.github/workflows/ci.yml`
-   - It will run automatically on push and pull requests
+3. **Set up Repository Settings**:
+   - Go to Settings → Pages (optional, for documentation)
+   - Go to Settings → Branches
+   - Add branch protection rule for `main` branch
 
 ### 3. Environment Setup
 
@@ -142,16 +143,16 @@ pyinstaller main.spec
 # Executable will be in dist/ directory
 ```
 
-## 📊 CI/CD Pipeline
+## 📊 Development Workflow
 
-The GitHub Actions workflow includes:
+For local development:
 
-1. **Testing**: Runs tests on multiple Python versions and OS
-2. **Linting**: Checks code style with flake8 and black
-3. **Type Checking**: Validates types with mypy
-4. **Coverage**: Generates test coverage reports
-5. **Building**: Creates executables for releases
-6. **Publishing**: Publishes to PyPI on tagged releases
+1. **Testing**: Run `make test` or `pytest tests/`
+2. **Linting**: Run `make lint` or `flake8 .`
+3. **Type Checking**: Run `mypy . --ignore-missing-imports`
+4. **Coverage**: Run `pytest tests/ --cov=. --cov-report=html`
+5. **Building**: Run `pyinstaller main.spec` for executables
+6. **Formatting**: Run `make format` or `black .`
 
 ## 🔐 Security Considerations
 
@@ -160,21 +161,20 @@ The GitHub Actions workflow includes:
 3. **No Data Transmission**: No data is sent to external servers
 4. **Container Security**: Docker setup uses non-root user
 
-## 📈 Monitoring and Analytics
+## 📈 Project Management
 
-- **Code Coverage**: Tracked via Codecov integration
-- **Dependencies**: Automated security updates via Dependabot
 - **Issues**: GitHub Issues for bug tracking
 - **Discussions**: GitHub Discussions for community engagement
+- **Releases**: Manual releases via git tags
+- **Documentation**: Keep README and CHANGELOG updated
 
 ## 🎯 Next Steps
 
 1. **Update Repository URLs**: Replace `yourusername` in all files with your actual GitHub username
-2. **Set up Secrets**: Add PyPI credentials to GitHub Secrets for automated publishing
-3. **Enable Dependabot**: For automated dependency updates
-4. **Set up Codecov**: For coverage reporting
-5. **Create Issues**: Add initial issues for planned features
-6. **Set up Wiki**: Create project wiki for detailed documentation
+2. **Create Issues**: Add initial issues for planned features
+3. **Set up Wiki**: Create project wiki for detailed documentation
+4. **Set up Branch Protection**: Protect main branch from direct pushes
+5. **Create Release Tags**: Use semantic versioning for releases
 
 ## 🔄 Maintenance
 
@@ -188,7 +188,8 @@ The GitHub Actions workflow includes:
 1. Update version in `pyproject.toml`
 2. Update `CHANGELOG.md`
 3. Create and push tag: `git tag v1.2.1 && git push origin v1.2.1`
-4. GitHub Actions will automatically build and publish
+4. Build and test locally: `make test && make build`
+5. Create GitHub release manually with release notes
 
 ## 📞 Support
 

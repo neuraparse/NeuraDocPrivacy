@@ -158,6 +158,15 @@ exclude_lines = [
     "@(abc\\.)?abstractmethod",
 ]
 
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+    "*/__init__.py",
+]
+
 [tool.pre-commit]
 repos = [
     {
